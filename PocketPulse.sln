@@ -1,10 +1,35 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateways", "ApiGateways", "{57234766-E51B-4AC8-A8A7-69ACD03C0815}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{1F515DCF-67AD-4489-A13B-3FB02482F5BB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{B7E62BC7-2C26-4B46-8060-BF85086D9111}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{B1C361C4-C9C5-4611-9C31-B773E0FA6616}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.API", "Identity.API\Identity.API.csproj", "{F35F7CBA-18D2-47F4-9CDC-F4F9CCEEF7DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Utilities\Utilities.csproj", "{2965F429-B947-4F20-A84F-F3B405BCC3BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F35F7CBA-18D2-47F4-9CDC-F4F9CCEEF7DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F35F7CBA-18D2-47F4-9CDC-F4F9CCEEF7DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F35F7CBA-18D2-47F4-9CDC-F4F9CCEEF7DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F35F7CBA-18D2-47F4-9CDC-F4F9CCEEF7DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2965F429-B947-4F20-A84F-F3B405BCC3BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2965F429-B947-4F20-A84F-F3B405BCC3BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2965F429-B947-4F20-A84F-F3B405BCC3BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2965F429-B947-4F20-A84F-F3B405BCC3BC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B1C361C4-C9C5-4611-9C31-B773E0FA6616} = {1F515DCF-67AD-4489-A13B-3FB02482F5BB}
+		{F35F7CBA-18D2-47F4-9CDC-F4F9CCEEF7DE} = {B1C361C4-C9C5-4611-9C31-B773E0FA6616}
+		{2965F429-B947-4F20-A84F-F3B405BCC3BC} = {B7E62BC7-2C26-4B46-8060-BF85086D9111}
 	EndGlobalSection
 EndGlobal
