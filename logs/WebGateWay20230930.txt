@@ -1,0 +1,16 @@
+2023-09-30 21:12:51.400 -05:00 [INF] User profile is available. Using '/Users/dominicodonnell/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2023-09-30 21:12:51.442 -05:00 [INF] Loading proxy data from config.
+2023-09-30 21:12:51.553 -05:00 [INF] Now listening on: https://localhost:7107
+2023-09-30 21:12:51.553 -05:00 [INF] Now listening on: http://localhost:5001
+2023-09-30 21:12:51.555 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-09-30 21:12:51.555 -05:00 [INF] Hosting environment: Development
+2023-09-30 21:12:51.555 -05:00 [INF] Content root path: /Users/dominicodonnell/RiderProjects/PocketPulse/WebGateWay/
+2023-09-30 21:12:55.921 -05:00 [INF] Application is shutting down...
+2023-09-30 21:13:45.729 -05:00 [INF] User profile is available. Using '/Users/dominicodonnell/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2023-09-30 21:13:45.770 -05:00 [INF] Loading proxy data from config.
+2023-09-30 21:13:45.878 -05:00 [INF] Now listening on: https://localhost:7107
+2023-09-30 21:13:45.878 -05:00 [INF] Now listening on: http://localhost:5001
+2023-09-30 21:13:45.880 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-09-30 21:13:45.880 -05:00 [INF] Hosting environment: Development
+2023-09-30 21:13:45.880 -05:00 [INF] Content root path: /Users/dominicodonnell/RiderProjects/PocketPulse/WebGateWay/
+2023-09-30 21:13:48.295 -05:00 [INF] Application is shutting down...

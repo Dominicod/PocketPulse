@@ -1,16 +1,26 @@
+using System.ComponentModel.DataAnnotations;
+using Identity.API.Models;
 using Utilities.Shared.DTOs;
-using Utilities.Shared.Models;
 
 namespace Identity.API.DTOs;
 
-public class UserDTO : BaseUserDTO
+public class UserDTO : BaseDTO
 {
+    [Required]
+    [StringLength(100)]
+    public string UserName { get; set; } = string.Empty;
+    [Required]
+    [EmailAddress]
+    [StringLength(100)]
+    public string Email { get; set; } = string.Empty;
+    
     public UserDTO()
     {
     }
 
-    public UserDTO(BaseUser user)
+    public UserDTO(User user)
     {
+        Id = user.Id;
         Email = user.Email;
         UserName = user.UserName;
         
