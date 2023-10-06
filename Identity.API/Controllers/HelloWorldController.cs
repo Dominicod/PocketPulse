@@ -1,14 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
+using Utilities.Shared;
 
 namespace Identity.API.Controllers;
 
 [ApiController]
 [Route("[controller]/[action]")]
-public class HelloWorldController : ControllerBase
+public class HelloWorldController : BaseController<HelloWorldController>
 {
     private readonly ILogger<HelloWorldController> _logger;
 
-    public HelloWorldController(ILogger<HelloWorldController> logger)
+    public HelloWorldController(ILogger<HelloWorldController> logger) : base(logger)
     {
         _logger = logger;
     }
@@ -16,6 +17,7 @@ public class HelloWorldController : ControllerBase
     [HttpGet(Name = "GetHelloWorld")]
     public string GetHelloWorld()
     {
+        _logger.LogInformation("Hello World!");
         return "Hello World!";
     }
 }
