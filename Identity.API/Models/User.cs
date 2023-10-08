@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Identity.API.DTOs;
-using Utilities.Shared.Models;
+using Utilities.BaseModels;
 
 namespace Identity.API.Models;
 

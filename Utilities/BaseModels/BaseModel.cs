@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Utilities.Shared.Models;
+namespace Utilities.BaseModels;
 
 public class BaseModel
 {
