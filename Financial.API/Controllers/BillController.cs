@@ -4,6 +4,10 @@ using Utilities.Shared;
 
 namespace Financial.API.Controllers;
 
+/// <summary>
+/// Controller for managing bills
+/// API Documentation: https://www.postman.com/dodonnell99/workspace/pocketpulseapi/folder/23643166-c195520b-6e40-43e0-bb14-328842fa53ff
+/// </summary>
 [ApiController]
 [Route("[controller]/[action]")]
 public class BillController : BaseController<BillController>
