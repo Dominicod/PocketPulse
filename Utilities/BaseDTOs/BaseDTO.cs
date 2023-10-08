@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Utilities.Shared.DTOs;
+namespace Utilities.BaseDTOs;
 
 public class BaseDTO
 {

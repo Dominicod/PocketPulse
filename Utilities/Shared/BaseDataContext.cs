@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Utilities.Shared.Models;
+using Utilities.BaseModels;
 
 namespace Utilities.Shared;
 
