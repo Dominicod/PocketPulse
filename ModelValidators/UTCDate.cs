@@ -20,13 +20,13 @@ public class UTCDate : ValidationAttribute
         if (!IsNotMaxOrMinDate(dateTimeValue))
         {
             _errorMessage = "The Field {0} cannot be the minimum or maximum date value.";
-            return true;
+            return false;
         }
 
-        if (DateIsUtcFormatted(dateTimeValue)) return false;
+        if (DateIsUtcFormatted(dateTimeValue)) return true;
         
         _errorMessage = "The Field {0} must be a valid UTC date.";
-        return true;
+        return false;
     }
 
     private static bool IsNotMaxOrMinDate(DateTime date) => date != DateTime.MinValue && date != DateTime.MaxValue;
