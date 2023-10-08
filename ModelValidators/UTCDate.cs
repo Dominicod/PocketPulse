@@ -8,9 +8,7 @@ namespace ModelValidators;
 [AttributeUsage(AttributeTargets.Property)]
 public class UTCDate : ValidationAttribute
 {
-    private string _errorMessage = "Error occured on Field {0}";
-    
-    public UTCDate() => ErrorMessage = _errorMessage;
+    public UTCDate() => ErrorMessage = "Error occured on Field {0}";
     
     public override bool IsValid(object? value)
     {
@@ -19,13 +17,13 @@ public class UTCDate : ValidationAttribute
 
         if (!IsNotMaxOrMinDate(dateTimeValue))
         {
-            _errorMessage = "The Field {0} cannot be the minimum or maximum date value.";
+            ErrorMessage = "The Field {0} cannot be the minimum or maximum date value.";
             return false;
         }
 
         if (DateIsUtcFormatted(dateTimeValue)) return true;
         
-        _errorMessage = "The Field {0} must be a valid UTC date.";
+        ErrorMessage = "The Field {0} must be a valid UTC date.";
         return false;
     }
 
