@@ -16,6 +16,7 @@ public class IdentityDBContext : BaseDataContext, IIdentityDBContext
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.HasDefaultSchema("Identity");
     }
 
     public DbSet<User> Users { get; set; } = null!;

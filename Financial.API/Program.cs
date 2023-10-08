@@ -1,5 +1,6 @@
 using Financial.API.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Serilog;
 
 try
@@ -7,9 +8,10 @@ try
     var builder = WebApplication.CreateBuilder(args);
     var configuration = builder.Configuration;
 
+    string connectionString = configuration["ConnectionStrings:DefaultConnection"] ??
+                              throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
     builder.Services.AddDbContext<IFinancialDBContext, FinancialDBContext>(options =>
-        options.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"] ??
-                             throw new InvalidOperationException("Connection string 'DefaultConnection' not found."))
+        options.UseSqlServer(connectionString, x => x.MigrationsHistoryTable(HistoryRepository.DefaultTableName, "Financial"))
     );
     // builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     //     .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAdB2C"));

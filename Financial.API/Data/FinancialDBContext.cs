@@ -1,3 +1,4 @@
+using Financial.API.Models;
 using Microsoft.EntityFrameworkCore;
 using Utilities.Shared;
 
@@ -15,5 +16,8 @@ public class FinancialDBContext : BaseDataContext, IFinancialDBContext
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.HasDefaultSchema("Financial");
     }
+    
+    public DbSet<Bill> Bills { get; set; } = null!;
 }
