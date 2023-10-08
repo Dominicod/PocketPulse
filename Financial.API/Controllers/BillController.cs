@@ -26,20 +26,20 @@ public class BillController : BaseController<BillController>
     public async Task<IActionResult> CreateBills(List<BillDTO> bills)
     {
         _logger.LogInformation("Creating bills");
-        return Ok("Hello World");
+        return Created("Hello World", Guid.NewGuid());
     }
     
     [HttpPut]
     public async Task<IActionResult> UpdateBills(List<BillDTO> bills)
     {
         _logger.LogInformation("Updating bills");
-        return Ok("Hello World");
+        return NoContent();
     }
     
     [HttpDelete]
     public async Task<IActionResult> DeleteBills(List<Guid> billIds)
     {
         _logger.LogInformation("Deleting bills");
-        return Ok("Hello World");
+        return NoContent();
     }
 }
