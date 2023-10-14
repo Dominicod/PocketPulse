@@ -1,4 +1,5 @@
 using Financial.API.DTOs;
+using Financial.API.Services;
 using Microsoft.AspNetCore.Mvc;
 using Utilities.Shared;
 
@@ -13,16 +14,23 @@ namespace Financial.API.Controllers;
 public class BillController : BaseController<BillController>
 {
     private readonly ILogger<BillController> _logger;
+    private readonly IBillService _billService;
 
-    public BillController(ILogger<BillController> logger) : base(logger)
+    public BillController(
+        ILogger<BillController> logger, 
+        IBillService billService) : base(logger)
     {
         _logger = logger;
+        _billService = billService;
     }
     
     [HttpGet]
     public async Task<IActionResult> GetAllBillsForUser(Guid userId)
     {
         _logger.LogInformation("Getting all bills for user {UserId}", userId);
+        
+        await _billService.GetAllBillsForUser(userId);
+        
         return Ok("Hello World");
     }
     
@@ -30,6 +38,9 @@ public class BillController : BaseController<BillController>
     public async Task<IActionResult> CreateBills(List<BillDTO> bills)
     {
         _logger.LogInformation("Creating bills");
+        
+        await _billService.CreateBills(bills);
+        
         return Created("Hello World", Guid.NewGuid());
     }
     
@@ -37,6 +48,9 @@ public class BillController : BaseController<BillController>
     public async Task<IActionResult> UpdateBills(List<BillDTO> bills)
     {
         _logger.LogInformation("Updating bills");
+        
+        await _billService.UpdateBills(bills);
+        
         return NoContent();
     }
     
@@ -44,6 +58,9 @@ public class BillController : BaseController<BillController>
     public async Task<IActionResult> DeleteBills(List<Guid> billIds)
     {
         _logger.LogInformation("Deleting bills");
+        
+        await _billService.DeleteBills(billIds);
+        
         return NoContent();
     }
 }

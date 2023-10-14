@@ -2,9 +2,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ModelValidators;
 
-//? This attribute is used to validate that a DateTime property is a valid UTC date.
-//? This also checks that the date is not the minimum or maximum date value.
-//?
+/// <summary>
+/// This attribute is used to validate that a DateTime property is a valid UTC date.
+/// This also checks that the date is not the minimum or maximum date value.
+/// </summary>
 [AttributeUsage(AttributeTargets.Property)]
 public class UTCDate : ValidationAttribute
 {
