@@ -1,4 +1,5 @@
 using Financial.API.Data;
+using Financial.API.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Serilog;
@@ -25,6 +26,7 @@ try
             .WriteTo.Async(wt => wt.Console())
             .WriteTo.File("../logs/FinancialAPI.txt", rollingInterval: RollingInterval.Day);
     });
+    builder.Services.AddScoped<IBillService, BillService>();
 
     var app = builder.Build();
 
