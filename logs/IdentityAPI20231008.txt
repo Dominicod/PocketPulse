@@ -1,6 +1,0 @@
-2023-10-08 13:43:38.470 -05:00 [FTL] Error occured while starting Identity.API: Ex: Exception of type 'Microsoft.Extensions.Hosting.HostFactoryResolver+HostingListener+StopTheHostException' was thrown.
-2023-10-08 13:46:33.259 -05:00 [FTL] Error occured while starting Identity.API: Ex: Exception of type 'Microsoft.Extensions.Hosting.HostFactoryResolver+HostingListener+StopTheHostException' was thrown.
-2023-10-08 13:47:18.144 -05:00 [FTL] Error occured while starting Identity.API: Ex: Exception of type 'Microsoft.Extensions.Hosting.HostFactoryResolver+HostingListener+StopTheHostException' was thrown.
-2023-10-08 13:50:41.953 -05:00 [FTL] Error occured while starting Identity.API: Ex: Exception of type 'Microsoft.Extensions.Hosting.HostFactoryResolver+HostingListener+StopTheHostException' was thrown.
-2023-10-08 13:50:51.053 -05:00 [FTL] Error occured while starting Identity.API: Ex: Exception of type 'Microsoft.Extensions.Hosting.HostFactoryResolver+HostingListener+StopTheHostException' was thrown.
-2023-10-08 13:51:15.350 -05:00 [FTL] Error occured while starting Identity.API: Ex: Exception of type 'Microsoft.Extensions.Hosting.HostFactoryResolver+HostingListener+StopTheHostException' was thrown.

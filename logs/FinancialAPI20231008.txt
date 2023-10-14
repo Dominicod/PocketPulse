@@ -1,9 +1,0 @@
-2023-10-08 13:40:19.476 -05:00 [FTL] Error occured while starting Financial.API: Ex: Exception of type 'Microsoft.Extensions.Hosting.HostFactoryResolver+HostingListener+StopTheHostException' was thrown.
-2023-10-08 13:41:51.632 -05:00 [FTL] Error occured while starting Financial.API: Ex: Exception of type 'Microsoft.Extensions.Hosting.HostFactoryResolver+HostingListener+StopTheHostException' was thrown.
-2023-10-08 13:46:22.837 -05:00 [FTL] Error occured while starting Financial.API: Ex: Exception of type 'Microsoft.Extensions.Hosting.HostFactoryResolver+HostingListener+StopTheHostException' was thrown.
-2023-10-08 13:47:28.394 -05:00 [FTL] Error occured while starting Financial.API: Ex: Exception of type 'Microsoft.Extensions.Hosting.HostFactoryResolver+HostingListener+StopTheHostException' was thrown.
-2023-10-08 13:50:04.804 -05:00 [FTL] Error occured while starting Financial.API: Ex: Exception of type 'Microsoft.Extensions.Hosting.HostFactoryResolver+HostingListener+StopTheHostException' was thrown.
-2023-10-08 13:50:22.456 -05:00 [FTL] Error occured while starting Financial.API: Ex: Exception of type 'Microsoft.Extensions.Hosting.HostFactoryResolver+HostingListener+StopTheHostException' was thrown.
-2023-10-08 13:50:30.264 -05:00 [FTL] Error occured while starting Financial.API: Ex: Exception of type 'Microsoft.Extensions.Hosting.HostFactoryResolver+HostingListener+StopTheHostException' was thrown.
-2023-10-08 13:51:01.203 -05:00 [FTL] Error occured while starting Financial.API: Ex: Exception of type 'Microsoft.Extensions.Hosting.HostFactoryResolver+HostingListener+StopTheHostException' was thrown.
-2023-10-08 13:51:08.668 -05:00 [FTL] Error occured while starting Financial.API: Ex: Exception of type 'Microsoft.Extensions.Hosting.HostFactoryResolver+HostingListener+StopTheHostException' was thrown.
