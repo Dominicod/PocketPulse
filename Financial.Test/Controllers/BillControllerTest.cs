@@ -4,6 +4,8 @@ using Financial.Test.Factories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
+using Utilities.Enums;
+using Utilities.Shared;
 
 namespace Financial.Test.Controllers;
 
@@ -23,6 +25,11 @@ public class BillControllerTest
     {
         // Arrange
         var userId = _faker.Random.Guid();
+        var bills = BillFactory.BuildBillDTO()
+            .Generate(5);
+        
+        _billServiceMock.Setup(r => r.GetAllBillsForUser(userId))
+            .ReturnsAsync(bills);
         
         // Act
         var result = await _controller.GetAllBillsForUser(userId);
@@ -40,6 +47,10 @@ public class BillControllerTest
         // Arrange
         var bills = BillFactory.BuildBillDTO()
             .Generate(5);
+        var standardServiceResult = new StandardServiceResult(ResultType.Success);
+        
+        _billServiceMock.Setup(r => r.CreateBills(bills))
+            .ReturnsAsync(standardServiceResult);
         
         // Act
         var result = await _controller.CreateBills(bills);
@@ -57,6 +68,10 @@ public class BillControllerTest
         // Arrange
         var bills = BillFactory.BuildBillDTO()
             .Generate(5);
+        var standardServiceResult = new StandardServiceResult(ResultType.Success);
+        
+        _billServiceMock.Setup(r => r.UpdateBills(bills))
+            .ReturnsAsync(standardServiceResult);
         
         // Act
         var result = await _controller.UpdateBills(bills);
@@ -73,6 +88,10 @@ public class BillControllerTest
     {
         // Arrange
         var billId = _faker.Random.Guid();
+        var standardServiceResult = new StandardServiceResult(ResultType.Success);
+        
+        _billServiceMock.Setup(r => r.DeleteBill(billId))
+            .ReturnsAsync(standardServiceResult);
         
         // Act
         var result = await _controller.DeleteBill(billId);

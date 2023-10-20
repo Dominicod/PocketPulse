@@ -29,9 +29,9 @@ public class BillController : BaseController<BillController>
     {
         _logger.LogInformation("Getting all bills for user {UserId}", userId);
         
-        await _billService.GetAllBillsForUser(userId);
+        var bills = await _billService.GetAllBillsForUser(userId);
         
-        return Ok("Hello World");
+        return Ok(bills);
     }
     
     [HttpPost]
