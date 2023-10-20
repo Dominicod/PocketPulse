@@ -1,6 +1,7 @@
 using Financial.API.DTOs;
 using Financial.API.Services;
 using Microsoft.AspNetCore.Mvc;
+using Utilities.Enums;
 using Utilities.Shared;
 
 namespace Financial.API.Controllers;
@@ -24,14 +25,18 @@ public class BillController : BaseController<BillController>
         _billService = billService;
     }
     
+    # region Bill
     [HttpGet]
     public async Task<IActionResult> GetAllBillsForUser(Guid userId)
     {
         _logger.LogInformation("Getting all bills for user {UserId}", userId);
         
-        await _billService.GetAllBillsForUser(userId);
+        if (userId == Guid.Empty)
+            return BadRequest("UserId cannot be empty");
         
-        return Ok("Hello World");
+        var bills = await _billService.GetAllBillsForUser(userId);
+        
+        return Ok(bills);
     }
     
     [HttpPost]
@@ -41,7 +46,7 @@ public class BillController : BaseController<BillController>
         
         await _billService.CreateBills(bills);
         
-        return Created("Hello World", Guid.NewGuid());
+        return Created("/Financial/Bill/GetAllBillsForUser", null);
     }
     
     [HttpPut]
@@ -55,12 +60,16 @@ public class BillController : BaseController<BillController>
     }
     
     [HttpDelete]
-    public async Task<IActionResult> DeleteBills(List<Guid> billIds)
+    public async Task<IActionResult> DeleteBill(Guid billId)
     {
-        _logger.LogInformation("Deleting bills");
+        _logger.LogInformation("Deleting bill {BillId}", billId);
         
-        await _billService.DeleteBills(billIds);
+        if (billId == Guid.Empty)
+            return BadRequest("BillId cannot be empty");
+        
+        await _billService.DeleteBill(billId);
         
         return NoContent();
     }
+    # endregion
 }

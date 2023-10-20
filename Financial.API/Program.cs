@@ -1,4 +1,5 @@
 using Financial.API.Data;
+using Financial.API.Repositories;
 using Financial.API.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
@@ -9,8 +10,8 @@ try
     var builder = WebApplication.CreateBuilder(args);
     var configuration = builder.Configuration;
 
-    string connectionString = configuration["ConnectionStrings:DefaultConnection"] ??
-                              throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+    var connectionString = configuration["ConnectionStrings:DefaultConnection"] ??
+                           throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
     builder.Services.AddDbContext<IFinancialDBContext, FinancialDBContext>(options =>
         options.UseSqlServer(connectionString, x => x.MigrationsHistoryTable(HistoryRepository.DefaultTableName, "Financial"))
     );
@@ -27,6 +28,7 @@ try
             .WriteTo.File("../logs/FinancialAPI.txt", rollingInterval: RollingInterval.Day);
     });
     builder.Services.AddScoped<IBillService, BillService>();
+    builder.Services.AddScoped<IBillRepository, BillRepository>();
 
     var app = builder.Build();
 
