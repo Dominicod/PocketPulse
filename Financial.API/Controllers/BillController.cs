@@ -41,7 +41,7 @@ public class BillController : BaseController<BillController>
         
         await _billService.CreateBills(bills);
         
-        return Created("Hello World", Guid.NewGuid());
+        return Created("/Financial/Bill/GetAllBillsForUser", null);
     }
     
     [HttpPut]
