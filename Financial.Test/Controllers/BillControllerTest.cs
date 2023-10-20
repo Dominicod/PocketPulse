@@ -18,6 +18,7 @@ public class BillControllerTest
 
     public BillControllerTest() => _controller = new BillController(_loggerMock.Object, _billServiceMock.Object);
     
+    # region Bill
     //? Happy Path
     //?
     [Fact]
@@ -37,6 +38,22 @@ public class BillControllerTest
         // Assert
         _billServiceMock.Verify(r => r.GetAllBillsForUser(userId), Times.Once);
         Assert.IsType<OkObjectResult>(result);
+    }
+    
+    //? Sad Path
+    //?
+    [Fact]
+    public async Task GetAllBillsForUser_ShouldReturnBadRequest()
+    {
+        // Arrange
+        var userId = Guid.Empty;
+        
+        // Act
+        var result = await _controller.GetAllBillsForUser(userId);
+        
+        // Assert
+        _billServiceMock.Verify(r => r.GetAllBillsForUser(userId), Times.Never);
+        Assert.IsType<BadRequestObjectResult>(result);
     }
     
     //? Happy Path
@@ -100,4 +117,21 @@ public class BillControllerTest
         _billServiceMock.Verify(r => r.DeleteBill(billId), Times.Once);
         Assert.IsType<NoContentResult>(result);
     }
+    
+    //? Sad Path
+    //?
+    [Fact]
+    public async Task DeleteBill_ShouldReturnBadRequest()
+    {
+        // Arrange
+        var billId = Guid.Empty;
+        
+        // Act
+        var result = await _controller.DeleteBill(billId);
+        
+        // Assert
+        _billServiceMock.Verify(r => r.DeleteBill(billId), Times.Never);
+        Assert.IsType<BadRequestObjectResult>(result);
+    }
+    # endregion
 }

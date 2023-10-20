@@ -1,6 +1,7 @@
 using Financial.API.DTOs;
 using Financial.API.Services;
 using Microsoft.AspNetCore.Mvc;
+using Utilities.Enums;
 using Utilities.Shared;
 
 namespace Financial.API.Controllers;
@@ -24,10 +25,14 @@ public class BillController : BaseController<BillController>
         _billService = billService;
     }
     
+    # region Bill
     [HttpGet]
     public async Task<IActionResult> GetAllBillsForUser(Guid userId)
     {
         _logger.LogInformation("Getting all bills for user {UserId}", userId);
+        
+        if (userId == Guid.Empty)
+            return BadRequest("UserId cannot be empty");
         
         var bills = await _billService.GetAllBillsForUser(userId);
         
@@ -59,8 +64,12 @@ public class BillController : BaseController<BillController>
     {
         _logger.LogInformation("Deleting bill {BillId}", billId);
         
+        if (billId == Guid.Empty)
+            return BadRequest("BillId cannot be empty");
+        
         await _billService.DeleteBill(billId);
         
         return NoContent();
     }
+    # endregion
 }

@@ -10,6 +10,7 @@ public class BillRepository : IBillRepository
 
     public BillRepository(FinancialDBContext context) => _context = context;
 
+    # region Bill
     public async Task<Bill?> GetBill(Guid billId) => await _context.Bills.FindAsync(billId);
 
     public IQueryable<Bill> GetAllBills() => _context.Bills.OrderBy(i => i.Id);
@@ -61,4 +62,5 @@ public class BillRepository : IBillRepository
             
         return bills;
     }
+    # endregion
 }
