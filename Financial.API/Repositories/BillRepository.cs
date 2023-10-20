@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Financial.API.Repositories;
 
-public class BillRepository
+public class BillRepository : IBillRepository
 {
     private readonly FinancialDBContext _context;
 
@@ -12,7 +12,7 @@ public class BillRepository
 
     public async Task<Bill?> GetBill(Guid billId) => await _context.Bills.FindAsync(billId);
 
-    public async Task<List<Bill>> GetAllBills() => await _context.Bills.OrderBy(i => i.Id).ToListAsync();
+    public IQueryable<Bill> GetAllBills() => _context.Bills.OrderBy(i => i.Id);
 
     public async Task<Bill> CreateBill(Bill bill)
     {

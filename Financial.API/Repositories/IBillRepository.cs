@@ -5,7 +5,7 @@ namespace Financial.API.Repositories;
 public interface IBillRepository
 {
     Task<Bill?> GetBill(Guid billId);
-    Task<List<Bill>> GetAllBills();
+    IQueryable<Bill> GetAllBills();
     Task<Bill> CreateBill(Bill bill);
     Task<List<Bill>> CreateBills(List<Bill> bills);
     Task<bool> DeleteBill(Bill bill);

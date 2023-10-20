@@ -69,17 +69,16 @@ public class BillControllerTest
     //? Happy Path
     //?
     [Fact]
-    public async Task DeleteBills_ShouldReturnNoContent()
+    public async Task DeleteBill_ShouldReturnNoContent()
     {
         // Arrange
-        var billIds = _faker.Make(5, () => _faker.Random.Guid())
-            .ToList();
+        var billId = _faker.Random.Guid();
         
         // Act
-        var result = await _controller.DeleteBills(billIds);
+        var result = await _controller.DeleteBill(billId);
         
         // Assert
-        _billServiceMock.Verify(r => r.DeleteBills(billIds), Times.Once);
+        _billServiceMock.Verify(r => r.DeleteBill(billId), Times.Once);
         Assert.IsType<NoContentResult>(result);
     }
 }

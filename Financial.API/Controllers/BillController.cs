@@ -55,11 +55,11 @@ public class BillController : BaseController<BillController>
     }
     
     [HttpDelete]
-    public async Task<IActionResult> DeleteBills(List<Guid> billIds)
+    public async Task<IActionResult> DeleteBill(Guid billId)
     {
-        _logger.LogInformation("Deleting bills");
+        _logger.LogInformation("Deleting bill {BillId}", billId);
         
-        await _billService.DeleteBills(billIds);
+        await _billService.DeleteBill(billId);
         
         return NoContent();
     }
