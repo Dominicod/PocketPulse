@@ -17,6 +17,7 @@ public class BillDTO : BaseDTO
     public DateTime DueDate { get; set; }
     public BillType BillType { get; set; }
     
+    [NonEmptyGuid]
     public Guid UserId { get; set; }
     
     public BillDTO()
