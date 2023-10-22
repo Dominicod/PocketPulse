@@ -33,10 +33,16 @@ public class BillController : BaseController<BillController>
         
         if (userId == Guid.Empty)
             return BadRequest("UserId cannot be empty");
-        
-        var bills = await _billService.GetAllBillsForUser(userId);
-        
-        return Ok(bills);
+
+        try
+        {
+            var bills = await _billService.GetAllBillsForUser(userId);
+            return Ok(bills);
+        } catch (Exception e)
+        {
+            _logger.LogError(e, "Error getting bills for user {UserId}", userId);
+            return StatusCode(500, "Error getting bills for user");
+        }
     }
     
     [HttpPost]
@@ -44,19 +50,39 @@ public class BillController : BaseController<BillController>
     {
         _logger.LogInformation("Creating bills");
         
-        await _billService.CreateBills(bills);
+        try
+        {
+            var result = await _billService.CreateBills(bills);
         
-        return Created("/Financial/Bill/GetAllBillsForUser", null);
+            if (result.Result == ResultType.Success)
+                return Created("/Financial/Bill/GetAllBillsForUser", null);   
+            
+            return BadRequest(result.Messages);
+        } catch (Exception e)
+        {
+            _logger.LogError(e, "Error creating bills");
+            return StatusCode(500, "Error creating bills");
+        }
     }
     
     [HttpPut]
     public async Task<IActionResult> UpdateBills(List<BillDTO> bills)
     {
         _logger.LogInformation("Updating bills");
+
+        try
+        {
+            var result = await _billService.UpdateBills(bills);
         
-        await _billService.UpdateBills(bills);
-        
-        return NoContent();
+            if (result.Result == ResultType.Success)
+                return NoContent();
+            
+            return BadRequest(result.Messages);
+        } catch (Exception e)
+        {
+            _logger.LogError(e, "Error updating bills");
+            return StatusCode(500, "Error updating bills");
+        }
     }
     
     [HttpDelete]
@@ -66,10 +92,20 @@ public class BillController : BaseController<BillController>
         
         if (billId == Guid.Empty)
             return BadRequest("BillId cannot be empty");
-        
-        await _billService.DeleteBill(billId);
-        
-        return NoContent();
+
+        try
+        {
+            var result = await _billService.DeleteBill(billId);
+            
+            if (result.Result == ResultType.Success)
+                return NoContent();   
+            
+            return BadRequest(result.Messages);
+        } catch (Exception e)
+        {
+            _logger.LogError(e, "Error deleting bill {BillId}", billId);
+            return StatusCode(500, "Error deleting bill");
+        }
     }
     # endregion
 }
