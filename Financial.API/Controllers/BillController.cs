@@ -2,6 +2,7 @@ using Financial.API.DTOs;
 using Financial.API.Services;
 using Microsoft.AspNetCore.Mvc;
 using Utilities.Enums;
+using Utilities.Services;
 using Utilities.Shared;
 
 namespace Financial.API.Controllers;
@@ -16,13 +17,17 @@ public class BillController : BaseController<BillController>
 {
     private readonly ILogger<BillController> _logger;
     private readonly IBillService _billService;
+    private readonly IErrorHandlerService _errorHandlerService;
 
     public BillController(
         ILogger<BillController> logger, 
-        IBillService billService) : base(logger)
+        IBillService billService, 
+        IErrorHandlerService errorHandlerService) 
+        : base(logger)
     {
         _logger = logger;
         _billService = billService;
+        _errorHandlerService = errorHandlerService;
     }
     
     # region Bill
@@ -89,9 +94,12 @@ public class BillController : BaseController<BillController>
     public async Task<IActionResult> DeleteBill(Guid billId)
     {
         _logger.LogInformation("Deleting bill {BillId}", billId);
-        
+
         if (billId == Guid.Empty)
-            return BadRequest("BillId cannot be empty");
+        {
+            var result = new StandardServiceResult(ResultType.Invalid, "BillId cannot be empty");
+            return _errorHandlerService.GetErrorResponse(result);   
+        }
 
         try
         {

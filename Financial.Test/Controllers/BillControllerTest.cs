@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Utilities.Enums;
+using Utilities.Services;
 using Utilities.Shared;
 
 namespace Financial.Test.Controllers;
@@ -13,10 +14,11 @@ public class BillControllerTest
 {
     private readonly Mock<ILogger<BillController>> _loggerMock = new();
     private readonly Mock<IBillService> _billServiceMock = new();
+    private readonly Mock<IErrorHandlerService> _errorHandlerServiceMock = new();
     private readonly Faker _faker = new();
     private readonly BillController _controller;
 
-    public BillControllerTest() => _controller = new BillController(_loggerMock.Object, _billServiceMock.Object);
+    public BillControllerTest() => _controller = new BillController(_loggerMock.Object, _billServiceMock.Object, _errorHandlerServiceMock.Object);
     
     # region Bill
     //? Happy Path
