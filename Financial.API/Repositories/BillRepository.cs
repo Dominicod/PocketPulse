@@ -15,52 +15,52 @@ public class BillRepository : IBillRepository
 
     public IQueryable<Bill> GetAllBills() => _context.Bills.OrderBy(i => i.Id);
 
-    public async Task<Bill> CreateBill(Bill bill)
+    public async Task<bool> CreateBill(Bill bill)
     {
         await _context.Bills.AddAsync(bill);
-        await _context.SaveChangesAsync();
+        var savedChangeCount = await _context.SaveChangesAsync();
 
-        return bill;
+        return savedChangeCount >= 1;
     }
     
-    public async Task<List<Bill>> CreateBills(List<Bill> bills)
+    public async Task<bool> CreateBills(List<Bill> bills)
     {
         await _context.Bills.AddRangeAsync(bills);
-        await _context.SaveChangesAsync();
+        var savedChangeCount = await _context.SaveChangesAsync();
 
-        return bills;
+        return savedChangeCount >= bills.Count;
     }
 
     public async Task<bool> DeleteBill(Bill bill)
     {
         _context.Remove(bill);
-        var result = await _context.SaveChangesAsync();
+        var savedChangeCount = await _context.SaveChangesAsync();
 
-        return result >= 1;
+        return savedChangeCount >= 1;
     }
     
     public async Task<bool> DeleteBills(List<Bill> bills)
     {
         _context.RemoveRange(bills);
-        var result = await _context.SaveChangesAsync();
+        var savedChangeCount = await _context.SaveChangesAsync();
 
-        return result == bills.Count;
+        return savedChangeCount >= bills.Count;
     }
 
-    public async Task<Bill> UpdateBill(Bill bill)
+    public async Task<bool> UpdateBill(Bill bill)
     {
         _context.Bills.Update(bill);
-        await _context.SaveChangesAsync();
+        var savedChangeCount = await _context.SaveChangesAsync();
             
-        return bill;
+        return savedChangeCount >= 1;
     }
 
-    public async Task<List<Bill>> UpdateBills(List<Bill> bills)
+    public async Task<bool> UpdateBills(List<Bill> bills)
     {
         _context.Bills.UpdateRange(bills);
-        await _context.SaveChangesAsync();
+        var savedChangeCount = await _context.SaveChangesAsync();
             
-        return bills;
+        return savedChangeCount >= bills.Count;
     }
     # endregion
 }
