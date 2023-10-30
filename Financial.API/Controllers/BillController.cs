@@ -2,7 +2,6 @@ using Financial.API.DTOs;
 using Financial.API.Services;
 using Microsoft.AspNetCore.Mvc;
 using Utilities.Enums;
-using Utilities.Serializers;
 using Utilities.Services;
 using Utilities.Shared;
 
