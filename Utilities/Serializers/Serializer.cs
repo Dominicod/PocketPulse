@@ -17,4 +17,14 @@ public static class Serializer
         
         return serializedError;
     }
+    
+    public static object SerializeData(object data)
+    {
+        var serializedData = new 
+        {
+            Data = data
+        };
+        
+        return serializedData;
+    }
 }
