@@ -13,9 +13,14 @@ public class ErrorHandlerService : IErrorHandlerService
     
     public JsonResult GetErrorResponse(StandardServiceResult standardServiceResult)
     {
-        var stringifiedMessages = string.Join(", ", standardServiceResult.Messages);
-        _logger.LogError("Error Occured : {ErrorMessages}", stringifiedMessages);
+        _logger.LogError("Error: {Error}", standardServiceResult.Messages);
+
+        var contentResult = new JsonResult(Serializer.SerializeError(standardServiceResult))
+        {
+            ContentType = "application/json",
+            StatusCode = standardServiceResult.ParseResultToStatusCode()
+        };
         
-        return new JsonResult(Serializer.SerializeError(standardServiceResult));
+        return contentResult;
     }
 }

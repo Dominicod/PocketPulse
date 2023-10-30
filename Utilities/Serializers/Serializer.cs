@@ -1,17 +1,20 @@
-using System.Text.Json;
+using Utilities.Shared;
 
 namespace Utilities.Serializers;
 
 public static class Serializer
 {
-    public static string SerializeError(object obj)
+    public static object SerializeError(StandardServiceResult result)
     {
-        var options = new JsonSerializerOptions
+        var serializedError = new 
         {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            WriteIndented = true
+            Error = new {
+                Status = result.ParseResultToStatusCode().ToString(),
+                Title = result.ParseResultToTitle(),
+                Detail = result.Messages
+            }
         };
-
-        return JsonSerializer.Serialize(obj, options);
+        
+        return serializedError;
     }
 }

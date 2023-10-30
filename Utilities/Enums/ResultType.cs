@@ -3,7 +3,8 @@ namespace Utilities.Enums;
 public enum ResultType
 {
     Success,
-    Invalid,
-    Failure,
-    NotFound
+    NotFound,
+    BadRequest,
+    Unauthorized,
+    Error
 }
