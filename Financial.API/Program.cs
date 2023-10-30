@@ -4,6 +4,7 @@ using Financial.API.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Serilog;
+using Utilities.Services;
 
 try
 {
@@ -29,6 +30,7 @@ try
     });
     builder.Services.AddScoped<IBillService, BillService>();
     builder.Services.AddScoped<IBillRepository, BillRepository>();
+    builder.Services.AddScoped<IResponseHandlerService, ResponseHandlerService>();
 
     var app = builder.Build();
 

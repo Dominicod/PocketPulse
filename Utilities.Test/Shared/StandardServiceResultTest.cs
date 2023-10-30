@@ -22,7 +22,7 @@ public class StandardServiceResultTest
     public void Constructor_WithResultTypeAndMessage_SetsResultAndMessage()
     {
         // Arrange
-        const ResultType expectedResult = ResultType.Failure;
+        const ResultType expectedResult = ResultType.Error;
         const string expectedMessage = "An error occurred";
 
         // Act

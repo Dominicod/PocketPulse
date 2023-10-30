@@ -75,10 +75,9 @@ public class BillServiceTest
         var billDTOs = BillFactory.BuildBillDTO()
             .RuleFor(i => i.Id, Guid.Empty)
             .Generate(5);
-        var billModels = billDTOs.Select(b => new Bill(b) { Id = Guid.NewGuid() }).ToList();
         
         _billRepositoryMock.Setup(x => x.CreateBills(It.IsAny<List<Bill>>()))
-            .ReturnsAsync(billModels);
+            .ReturnsAsync(true);
         
         // Act
         var result = await _service.CreateBills(billDTOs);
@@ -99,10 +98,9 @@ public class BillServiceTest
         var billDTOs = BillFactory.BuildBillDTO()
             .RuleFor(i => i.Id, Guid.Empty)
             .Generate(5);
-        var billModels = billDTOs.Select(b => new Bill(b) { Id = Guid.NewGuid() }).ToList();
         
         _billRepositoryMock.Setup(x => x.UpdateBills(It.IsAny<List<Bill>>()))
-            .ReturnsAsync(billModels);
+            .ReturnsAsync(true);
         
         // Act
         var result = await _service.UpdateBills(billDTOs);
@@ -125,6 +123,8 @@ public class BillServiceTest
         
         _billRepositoryMock.Setup(x => x.GetBill(bill.Id))
             .ReturnsAsync(bill);
+        _billRepositoryMock.Setup(x => x.DeleteBill(It.IsAny<Bill>()))
+            .ReturnsAsync(true);
         
         // Act
         var result = await _service.DeleteBill(bill.Id);
@@ -156,7 +156,7 @@ public class BillServiceTest
         _billRepositoryMock.Verify(x => x.DeleteBill(It.IsAny<Bill>()), Times.Never);
         Assert.NotNull(result);
         Assert.IsType<StandardServiceResult>(result);
-        Assert.Equal(ResultType.Failure, result.Result);
+        Assert.Equal(ResultType.NotFound, result.Result);
         Assert.Equal("Bill not found", result.Messages.First());
     }
 }

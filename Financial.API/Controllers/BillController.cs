@@ -2,6 +2,7 @@ using Financial.API.DTOs;
 using Financial.API.Services;
 using Microsoft.AspNetCore.Mvc;
 using Utilities.Enums;
+using Utilities.Services;
 using Utilities.Shared;
 
 namespace Financial.API.Controllers;
@@ -16,13 +17,17 @@ public class BillController : BaseController<BillController>
 {
     private readonly ILogger<BillController> _logger;
     private readonly IBillService _billService;
+    private readonly IResponseHandlerService _responseHandlerService;
 
     public BillController(
         ILogger<BillController> logger, 
-        IBillService billService) : base(logger)
+        IBillService billService, 
+        IResponseHandlerService responseHandlerService) 
+        : base(logger)
     {
         _logger = logger;
         _billService = billService;
+        _responseHandlerService = responseHandlerService;
     }
     
     # region Bill
@@ -32,11 +37,16 @@ public class BillController : BaseController<BillController>
         _logger.LogInformation("Getting all bills for user {UserId}", userId);
         
         if (userId == Guid.Empty)
-            return BadRequest("UserId cannot be empty");
-        
-        var bills = await _billService.GetAllBillsForUser(userId);
-        
-        return Ok(bills);
+            return _responseHandlerService.GetErrorResponse(new StandardServiceResult(ResultType.BadRequest, "UserId cannot be empty"));
+
+        try
+        {
+            var bills = await _billService.GetAllBillsForUser(userId);
+            return _responseHandlerService.GetOkResponse(bills);
+        } catch (Exception e)
+        {
+            return _responseHandlerService.GetErrorResponse(e);
+        }
     }
     
     [HttpPost]
@@ -44,32 +54,59 @@ public class BillController : BaseController<BillController>
     {
         _logger.LogInformation("Creating bills");
         
-        await _billService.CreateBills(bills);
+        try
+        {
+            var result = await _billService.CreateBills(bills);
         
-        return Created("/Financial/Bill/GetAllBillsForUser", null);
+            if (result.Result == ResultType.Success)
+                return _responseHandlerService.GetCreatedResponse("/Bill/GetAllBillsForUser?userId=" + bills[0].UserId);  
+            
+            return _responseHandlerService.GetErrorResponse(result);
+        } catch (Exception e)
+        {
+            return _responseHandlerService.GetErrorResponse(e);
+        }
     }
     
     [HttpPut]
     public async Task<IActionResult> UpdateBills(List<BillDTO> bills)
     {
         _logger.LogInformation("Updating bills");
+
+        try
+        {
+            var result = await _billService.UpdateBills(bills);
         
-        await _billService.UpdateBills(bills);
-        
-        return NoContent();
+            if (result.Result == ResultType.Success)
+                return NoContent();
+            
+            return _responseHandlerService.GetErrorResponse(result);
+        } catch (Exception e)
+        {
+            return _responseHandlerService.GetErrorResponse(e);
+        }
     }
     
     [HttpDelete]
     public async Task<IActionResult> DeleteBill(Guid billId)
     {
         _logger.LogInformation("Deleting bill {BillId}", billId);
-        
+
         if (billId == Guid.Empty)
-            return BadRequest("BillId cannot be empty");
-        
-        await _billService.DeleteBill(billId);
-        
-        return NoContent();
+            return _responseHandlerService.GetErrorResponse(new StandardServiceResult(ResultType.BadRequest, "BillId cannot be empty"));
+
+        try
+        {
+            var result = await _billService.DeleteBill(billId);
+            
+            if (result.Result == ResultType.Success)
+                return NoContent();   
+            
+            return _responseHandlerService.GetErrorResponse(result);
+        } catch (Exception e)
+        {
+           return _responseHandlerService.GetErrorResponse(e);
+        }
     }
     # endregion
 }

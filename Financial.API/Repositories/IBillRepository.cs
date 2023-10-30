@@ -6,10 +6,10 @@ public interface IBillRepository
 {
     Task<Bill?> GetBill(Guid billId);
     IQueryable<Bill> GetAllBills();
-    Task<Bill> CreateBill(Bill bill);
-    Task<List<Bill>> CreateBills(List<Bill> bills);
+    Task<bool> CreateBill(Bill bill);
+    Task<bool> CreateBills(List<Bill> bills);
     Task<bool> DeleteBill(Bill bill);
     Task<bool> DeleteBills(List<Bill> bills);
-    Task<Bill> UpdateBill(Bill bill);
-    Task<List<Bill>> UpdateBills(List<Bill> bills);
+    Task<bool> UpdateBill(Bill bill);
+    Task<bool> UpdateBills(List<Bill> bills);
 }

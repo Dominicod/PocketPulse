@@ -32,9 +32,9 @@ public class BillService : IBillService
     public async Task<StandardServiceResult> CreateBills(IEnumerable<BillDTO> bills)
     {
         var billModels = bills.Select(b => new Bill(b)).ToList();
-        await _billRepository.CreateBills(billModels);
+        var result = await _billRepository.CreateBills(billModels);
         
-        return new StandardServiceResult(ResultType.Success);
+        return result ? new StandardServiceResult(ResultType.Success) : new StandardServiceResult(ResultType.Error, "Failed to create bills");
     }
 
     public async Task<StandardServiceResult> DeleteBill(Guid billId)
@@ -42,19 +42,19 @@ public class BillService : IBillService
         var billModel = await _billRepository.GetBill(billId);
 
         if (billModel == null)
-            return new StandardServiceResult(ResultType.Failure, "Bill not found");
+            return new StandardServiceResult(ResultType.NotFound, "Bill not found");
 
-        await _billRepository.DeleteBill(billModel);
+        var result = await _billRepository.DeleteBill(billModel);
         
-        return new StandardServiceResult(ResultType.Success);
+        return result ? new StandardServiceResult(ResultType.Success) : new StandardServiceResult(ResultType.Error, "Failed to delete bill");
     }
     
     public async Task<StandardServiceResult> UpdateBills(IEnumerable<BillDTO> bills)
     {
         var billModels = bills.Select(b => new Bill(b)).ToList();
-        await _billRepository.UpdateBills(billModels);
+        var result = await _billRepository.UpdateBills(billModels);
         
-        return new StandardServiceResult(ResultType.Success);
+        return result ? new StandardServiceResult(ResultType.Success) : new StandardServiceResult(ResultType.Error, "Failed to update bills");
     }
     # endregion
 }

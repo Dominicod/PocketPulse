@@ -17,6 +17,7 @@ public class Bill : BaseModel
     public DateTime DueDate { get; set; }
     public BillType BillType { get; set; }
     
+    [NonEmptyGuid]
     public Guid UserId { get; set; }
 
     public Bill()
