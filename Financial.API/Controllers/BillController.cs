@@ -2,6 +2,7 @@ using Financial.API.DTOs;
 using Financial.API.Services;
 using Microsoft.AspNetCore.Mvc;
 using Utilities.Enums;
+using Utilities.Serializers;
 using Utilities.Services;
 using Utilities.Shared;
 
@@ -17,17 +18,17 @@ public class BillController : BaseController<BillController>
 {
     private readonly ILogger<BillController> _logger;
     private readonly IBillService _billService;
-    private readonly IErrorHandlerService _errorHandlerService;
+    private readonly IResponseHandlerService _responseHandlerService;
 
     public BillController(
         ILogger<BillController> logger, 
         IBillService billService, 
-        IErrorHandlerService errorHandlerService) 
+        IResponseHandlerService responseHandlerService) 
         : base(logger)
     {
         _logger = logger;
         _billService = billService;
-        _errorHandlerService = errorHandlerService;
+        _responseHandlerService = responseHandlerService;
     }
     
     # region Bill
@@ -37,16 +38,15 @@ public class BillController : BaseController<BillController>
         _logger.LogInformation("Getting all bills for user {UserId}", userId);
         
         if (userId == Guid.Empty)
-            return BadRequest("UserId cannot be empty");
+            return _responseHandlerService.GetErrorResponse(new StandardServiceResult(ResultType.BadRequest, "UserId cannot be empty"));
 
         try
         {
             var bills = await _billService.GetAllBillsForUser(userId);
-            return Ok(bills);
+            return _responseHandlerService.GetOkResponse(bills);
         } catch (Exception e)
         {
-            _logger.LogError(e, "Error getting bills for user {UserId}", userId);
-            return StatusCode(500, "Error getting bills for user");
+            return _responseHandlerService.GetErrorResponse(e);
         }
     }
     
@@ -60,13 +60,12 @@ public class BillController : BaseController<BillController>
             var result = await _billService.CreateBills(bills);
         
             if (result.Result == ResultType.Success)
-                return Created("/Financial/Bill/GetAllBillsForUser", null);   
+                return _responseHandlerService.GetCreatedResponse("/Bill/GetAllBillsForUser?userId=" + bills[0].UserId);  
             
-            return BadRequest(result.Messages);
+            return _responseHandlerService.GetErrorResponse(result);
         } catch (Exception e)
         {
-            _logger.LogError(e, "Error creating bills");
-            return StatusCode(500, "Error creating bills");
+            return _responseHandlerService.GetErrorResponse(e);
         }
     }
     
@@ -82,11 +81,10 @@ public class BillController : BaseController<BillController>
             if (result.Result == ResultType.Success)
                 return NoContent();
             
-            return BadRequest(result.Messages);
+            return _responseHandlerService.GetErrorResponse(result);
         } catch (Exception e)
         {
-            _logger.LogError(e, "Error updating bills");
-            return StatusCode(500, "Error updating bills");
+            return _responseHandlerService.GetErrorResponse(e);
         }
     }
     
@@ -96,10 +94,7 @@ public class BillController : BaseController<BillController>
         _logger.LogInformation("Deleting bill {BillId}", billId);
 
         if (billId == Guid.Empty)
-        {
-            var result = new StandardServiceResult(ResultType.Invalid, "BillId cannot be empty");
-            return _errorHandlerService.GetErrorResponse(result);   
-        }
+            return _responseHandlerService.GetErrorResponse(new StandardServiceResult(ResultType.BadRequest, "BillId cannot be empty"));
 
         try
         {
@@ -108,11 +103,10 @@ public class BillController : BaseController<BillController>
             if (result.Result == ResultType.Success)
                 return NoContent();   
             
-            return BadRequest(result.Messages);
+            return _responseHandlerService.GetErrorResponse(result);
         } catch (Exception e)
         {
-            _logger.LogError(e, "Error deleting bill {BillId}", billId);
-            return StatusCode(500, "Error deleting bill");
+           return _responseHandlerService.GetErrorResponse(e);
         }
     }
     # endregion

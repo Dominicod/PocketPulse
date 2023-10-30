@@ -30,7 +30,7 @@ try
     });
     builder.Services.AddScoped<IBillService, BillService>();
     builder.Services.AddScoped<IBillRepository, BillRepository>();
-    builder.Services.AddScoped<IErrorHandlerService, ErrorHandlerService>();
+    builder.Services.AddScoped<IResponseHandlerService, ResponseHandlerService>();
 
     var app = builder.Build();
 
