@@ -8,5 +8,5 @@ public interface IResponseHandlerService
     JsonResult GetErrorResponse(StandardServiceResult standardServiceResult);
     JsonResult GetErrorResponse(Exception exception);
     JsonResult GetOkResponse(object data);
-    JsonResult GetCreatedResponse(string uri);
+    CreatedResult GetCreatedResponse();
 }

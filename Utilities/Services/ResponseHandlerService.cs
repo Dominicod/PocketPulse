@@ -52,11 +52,10 @@ public class ResponseHandlerService : IResponseHandlerService
         return contentResult;
     }
     
-    public JsonResult GetCreatedResponse(string uri)
+    public CreatedResult GetCreatedResponse()
     {
-        var contentResult = new JsonResult(new CreatedResult(uri, null))
+        var contentResult = new CreatedResult(string.Empty, null)
         {
-            ContentType = "application/json",
             StatusCode = StatusCodes.Status201Created
         };
         

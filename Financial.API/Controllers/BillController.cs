@@ -59,7 +59,7 @@ public class BillController : BaseController<BillController>
             var result = await _billService.CreateBills(bills);
         
             if (result.Result == ResultType.Success)
-                return _responseHandlerService.GetCreatedResponse("/Bill/GetAllBillsForUser?userId=" + bills[0].UserId);  
+                return _responseHandlerService.GetCreatedResponse();  
             
             return _responseHandlerService.GetErrorResponse(result);
         } catch (Exception e)

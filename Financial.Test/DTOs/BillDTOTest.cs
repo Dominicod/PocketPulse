@@ -54,8 +54,9 @@ public class BillDTOTest
 
         // Assert
         Assert.False(isValid);
-        Assert.Single(validationResults);
+        Assert.Equal(2, validationResults.Count);
         Assert.Contains(validationResults, x => x.ErrorMessage == "The Field DueDate cannot be the minimum or maximum date value.");
+        Assert.Contains(validationResults, x => x.ErrorMessage == "The Field UserId must not be an empty guid.");
     }
     
     [Fact]

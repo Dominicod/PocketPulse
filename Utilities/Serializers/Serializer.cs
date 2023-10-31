@@ -22,7 +22,7 @@ public static class Serializer
     {
         var serializedData = new 
         {
-            Data = data
+            Data = data,
         };
         
         return serializedData;

@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Utilities.Enums;
-using Utilities.Serializers;
 using Utilities.Services;
 using Utilities.Shared;
 
@@ -82,8 +81,8 @@ public class BillControllerTest
             .Generate(5);
         var standardServiceResult = new StandardServiceResult(ResultType.Success);
         
-        _responseHandlerServiceMock.Setup(r => r.GetCreatedResponse(It.IsAny<string>()))
-            .Returns(new JsonResult(new CreatedResult(string.Empty, null)) { StatusCode = 201 });
+        _responseHandlerServiceMock.Setup(r => r.GetCreatedResponse())
+            .Returns(new CreatedResult(string.Empty, null) { StatusCode = 201 });
         
         _billServiceMock.Setup(r => r.CreateBills(bills))
             .ReturnsAsync(standardServiceResult);
@@ -93,10 +92,9 @@ public class BillControllerTest
         
         // Assert
         _billServiceMock.Verify(r => r.CreateBills(bills), Times.Once);
-        _responseHandlerServiceMock.Verify(r => r.GetCreatedResponse(It.Is<string>(s => s == "/Bill/GetAllBillsForUser?userId=" + bills[0].UserId)), Times.Once);
-        var dataResponse = Assert.IsType<JsonResult>(result);
+        _responseHandlerServiceMock.Verify(r => r.GetCreatedResponse(), Times.Once);
+        var dataResponse = Assert.IsType<CreatedResult>(result);
         Assert.Equal(201, dataResponse.StatusCode);
-        Assert.IsType<CreatedResult>(dataResponse.Value);
     }
     
     //? Sad Path
